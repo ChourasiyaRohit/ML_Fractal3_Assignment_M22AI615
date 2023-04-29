@@ -8,6 +8,8 @@ IMG_HEIGHT = 128
 
 model = tf.keras.models.load_model("chart_classifier_model.h5")
 
+
+
 def preprocess_image(image):
     # Resize the image to match the input size of the model
     img = cv2.resize(image, (IMG_WIDTH, IMG_HEIGHT))
