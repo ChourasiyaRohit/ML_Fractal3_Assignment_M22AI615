@@ -9,7 +9,7 @@ BATCH_SIZE = 32
 NUM_EPOCHS = 10
 
 # Load train_val.csv file containing image filenames and their corresponding labels
-train_df = pd.read_csv("train_val.csv")
+train_df = pd.read_csv("charts/train_val.csv")
 
 # Convert the "image_index" column to strings
 train_df["image_index"] = train_df["image_index"].astype(str)
@@ -29,7 +29,7 @@ train_datagen = ImageDataGenerator(
 # Load train and validation images using ImageDataGenerator
 train_generator = train_datagen.flow_from_dataframe(
     dataframe=train_df,
-    directory="train_val",
+    directory="charts/train_val",
     x_col="image_index",
     y_col="type",
     target_size=(IMG_WIDTH, IMG_HEIGHT),
@@ -39,7 +39,7 @@ train_generator = train_datagen.flow_from_dataframe(
 
 val_generator = train_datagen.flow_from_dataframe(
     dataframe=train_df,
-    directory="train_val",
+    directory="charts/train_val",
     x_col="image_index",
     y_col="type",
     target_size=(IMG_WIDTH, IMG_HEIGHT),

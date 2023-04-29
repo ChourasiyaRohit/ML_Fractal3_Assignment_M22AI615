@@ -12,12 +12,11 @@ import matplotlib.pyplot as plt
 """
 class MyPerceptron:
 
-    def __init__(self, learning_rate=1, n_iterations=6):
+    def __init__(self, learning_rate=1, n_iterations=3):
 
-        self.lr = learning_rate # Default learning rate is 0.1
-        self.epochs = n_iterations # epoch is for number of data set to iterate
+        self.lr = learning_rate  # Default learning rate is 0.1
+        self.epochs = n_iterations  # epoch is for number of data set to iterate
         self.weights = None
-        self.bias = None
 
     def fit(self, X, y):
         """
@@ -31,37 +30,30 @@ class MyPerceptron:
         # print("y shape", y.shape)
 
         # Default weights value set as [0. 0.]
-        #self.weights = np.zeros(X.shape[1])
+        self.weights = np.zeros(X.shape[1])
 
         # Set given initial weights value as [1. 1.]
-        self.weights = np.ones(X.shape[1])
-
-        # Default bias value set as 0
-        self.bias = 0
+        # self.weights = np.ones(X.shape[1])
 
         #print(self.weights)
-        #print(self.bias)
+
 
         for epoch in range(self.epochs):
             for i in range(X.shape[0]):
 
-                y_pred = self.activation_function(np.dot(self.weights, X[i]) + self.bias)
+                y_pred = self.activation_function(np.dot(self.weights, X[i]))
 
                 #self.weights = self.weights([w1, w2]) + self.lr * (y[i] - y_pred) * X[i]([x1, x2])
                 self.weights = self.weights + self.lr * (y[i] - y_pred) * X[i]
 
-                #self.bias = self.bias + self.lr * (y[i] - y_pred) * 1
-                self.bias = self.bias + self.lr * (y[i] - y_pred)
+                print(f"{i} times Weight Vectors: ", self.weights, " & Predicted Value: ", y_pred)
 
-                print(f"{i} times Weight Vectors: ", self.weights, " & Bias: ", self.bias, " & Predicted Value: ", y_pred)
-
-            print(f"\n{epoch} Epochs\Iterations Weight Vectors: ", self.weights, " & Bias: ", self.bias, " & Predicted Value: ", y_pred, "\n")
+            print(f"\n{epoch} Epochs\Iterations Weight Vectors: ", self.weights, " & Predicted Value: ", y_pred, "\n")
 
         print("Training Complete")
         print(f"Number of steps ({epoch+1} * {i+1}) : ", (epoch + 1) * (i + 1))
 
         #print(self.weights)
-        #print(self.bias)
 
     # Activation function will use for y_pred
     def activation_function(self, activation):
@@ -75,7 +67,7 @@ class MyPerceptron:
     def predict(self, X):
         y_pred = []
         for i in range(X.shape[0]):
-            y_pred.append(self.activation_function(np.dot(self.weights, X[i]) + self.bias))
+            y_pred.append(self.activation_function(np.dot(self.weights, X[i])))
         return np.array(y_pred)
 
 """
@@ -127,7 +119,6 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 print("\nFinal weight vector: ", model.weights)
-print("Final Bias: ", model.bias)
 print("Final Predicted y value: ", y_pred)
 
 print("\nAccuracy Score is: ", accuracy_score(y_test, y_pred))

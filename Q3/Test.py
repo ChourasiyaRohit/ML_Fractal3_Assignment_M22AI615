@@ -8,8 +8,6 @@ IMG_HEIGHT = 128
 
 model = tf.keras.models.load_model("chart_classifier_model.h5")
 
-
-
 def preprocess_image(image):
     # Resize the image to match the input size of the model
     img = cv2.resize(image, (IMG_WIDTH, IMG_HEIGHT))
@@ -45,9 +43,6 @@ for filename in test_files:
     predicted_class_index = np.argmax(predictions)
     predicted_class_name = class_names[predicted_class_index]
     confidence = predictions[0][predicted_class_index]
-
-
-
 
     print("Image name:", filename)
     print("Predicted class:", predicted_class_name)
